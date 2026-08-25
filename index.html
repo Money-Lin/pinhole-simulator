@@ -1,63 +1,596 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Money's Physics Lab</title>
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 90%;
-        }
-        h1 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-        p {
-            color: #666;
-            margin-bottom: 30px;
-        }
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 15px 0;
-            margin: 12px 0;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: background-color 0.2s;
+        * {
             box-sizing: border-box;
         }
-        .btn:hover {
-            background-color: #0056b3;
+
+        body {
+            margin: 0;
+
+            font-family:
+                "Noto Sans TC",
+                "PingFang TC",
+                "Microsoft JhengHei",
+                sans-serif;
+
+            background: #F7F2E6;
+            color: #5E4A43;
         }
+
+
+        /* =========================
+           頂部品牌區
+        ========================== */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+
+            min-height: 270px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 55px 30px;
+
+            background: #F3EEDC;
+        }
+
+
+        /* 左上裝飾 */
+        .hero::before {
+            content: "";
+            position: absolute;
+
+            width: 180px;
+            height: 140px;
+
+            left: -50px;
+            top: -50px;
+
+            background: #F3C9A6;
+
+            border-radius:
+                35% 65% 55% 45%
+                / 45% 40% 60% 55%;
+
+            transform: rotate(15deg);
+        }
+
+
+        /* 右下裝飾 */
+        .hero::after {
+            content: "";
+            position: absolute;
+
+            width: 330px;
+            height: 180px;
+
+            right: -80px;
+            bottom: -80px;
+
+            background: #F3C9A6;
+
+            border-radius:
+                60% 40% 35% 65%
+                / 55% 35% 65% 45%;
+
+            transform: rotate(-8deg);
+        }
+
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            text-align: center;
+        }
+
+
+        .hero-small {
+            display: inline-block;
+
+            padding: 7px 18px;
+            margin-bottom: 16px;
+
+            background: #E5C6B9;
+            color: #805E55;
+
+            border-radius: 999px;
+
+            font-size: 14px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+
+        .hero h1 {
+            margin: 0;
+
+            font-size: clamp(38px, 6vw, 64px);
+            letter-spacing: 3px;
+
+            color: #A87569;
+
+            font-weight: 900;
+        }
+
+
+        .hero p {
+            margin: 18px 0 0;
+
+            font-size: 17px;
+
+            color: #806D65;
+
+            letter-spacing: 1px;
+        }
+
+
+
+        /* =========================
+           主內容
+        ========================== */
+
+        main {
+            width: min(960px, 90%);
+            margin: 55px auto 80px;
+        }
+
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+
+        .section-tag {
+            display: inline-block;
+
+            padding: 7px 18px;
+
+            background: #E8CFC4;
+            color: #906B60;
+
+            border-radius: 999px;
+
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+
+        .section-title h2 {
+            margin: 14px 0 7px;
+
+            font-size: 27px;
+
+            color: #5E4A43;
+        }
+
+
+        .section-title p {
+            margin: 0;
+
+            color: #938079;
+
+            font-size: 15px;
+        }
+
+
+
+        /* =========================
+           單元卡片
+        ========================== */
+
+        .lesson-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 28px;
+        }
+
+
+        .lesson-card {
+            position: relative;
+
+            display: flex;
+            flex-direction: column;
+
+            background: #FFFDF8;
+
+            border-radius: 28px;
+
+            padding: 18px 18px 28px;
+
+            text-decoration: none;
+            color: inherit;
+
+            border: 2px solid transparent;
+
+            overflow: hidden;
+
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease,
+                border-color .25s ease;
+
+            box-shadow:
+                0 8px 25px rgba(111, 80, 66, .07);
+        }
+
+
+        .lesson-card:hover {
+            transform: translateY(-6px);
+
+            border-color: #E6C2B5;
+
+            box-shadow:
+                0 15px 30px rgba(111, 80, 66, .12);
+        }
+
+
+
+        /* =========================
+           單元縮圖
+        ========================== */
+
+        .lesson-thumb {
+            width: 100%;
+
+            aspect-ratio: 4 / 3;
+
+            margin-bottom: 24px;
+
+            overflow: hidden;
+
+            border-radius: 20px;
+
+            background: #F5EBDD;
+        }
+
+
+        .lesson-thumb img {
+            display: block;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+            object-position: center;
+
+            transition: transform .35s ease;
+        }
+
+
+        .lesson-card:hover .lesson-thumb img {
+            transform: scale(1.035);
+        }
+
+
+
+        /* =========================
+           卡片文字
+        ========================== */
+
+        .lesson-number {
+            margin: 0 10px;
+
+            font-size: 13px;
+
+            letter-spacing: 2px;
+
+            color: #B28B7D;
+
+            font-weight: bold;
+        }
+
+
+        .lesson-card h3 {
+            margin: 8px 10px 10px;
+
+            color: #76594F;
+
+            font-size: 24px;
+        }
+
+
+        .lesson-card p {
+            margin: 0 10px 25px;
+
+            line-height: 1.8;
+
+            color: #89766F;
+
+            font-size: 15px;
+        }
+
+
+
+        /* =========================
+           開始探索按鈕
+        ========================== */
+
+        .start {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            width: fit-content;
+
+            margin-top: auto;
+            margin-left: 10px;
+
+            padding: 9px 17px;
+
+            background: #D7A298;
+            color: white;
+
+            border-radius: 999px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            transition:
+                background .2s ease,
+                transform .2s ease;
+        }
+
+
+        .lesson-card:hover .start {
+            background: #B98277;
+
+            transform: translateX(3px);
+        }
+
+
+
+        /* =========================
+           Footer
+        ========================== */
+
+        footer {
+            text-align: center;
+
+            padding: 30px;
+
+            color: #A38D85;
+
+            font-size: 13px;
+        }
+
+
+
+        /* =========================
+           手機版
+        ========================== */
+
+        @media (max-width: 700px) {
+
+            .hero {
+                min-height: 230px;
+
+                padding: 45px 20px;
+            }
+
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+
+            .hero p {
+                font-size: 15px;
+            }
+
+
+            main {
+                width: 88%;
+
+                margin-top: 40px;
+            }
+
+
+            .lesson-grid {
+                grid-template-columns: 1fr;
+
+                gap: 24px;
+            }
+
+
+            .lesson-card {
+                padding: 15px 15px 25px;
+            }
+
+
+            .lesson-thumb {
+                margin-bottom: 21px;
+
+                border-radius: 18px;
+            }
+
+        }
+
     </style>
 </head>
+
+
+
 <body>
 
-    <div class="container">
-        <h1>Money's Physics Lab</h1>
-        <p>歡迎來到我的物理互動模擬實驗室！請選擇單元：</p>
-        
-        <a href="pinhole.html" class="btn">📷 針孔成像模擬器</a>
-        <a href="kinematics.html" class="btn">🚀 運動學模擬器</a>
-    </div>
+
+    <!-- =========================
+         頁首
+    ========================== -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-small">
+                MONEY'S SCIENCE CLASS
+            </div>
+
+            <h1>
+                Money's Physics Lab
+            </h1>
+
+            <p>
+                一起觀察、思考、動手做科學。
+            </p>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================
+         主要內容
+    ========================== -->
+
+    <main>
+
+
+        <!-- 標題 -->
+
+        <div class="section-title">
+
+            <span class="section-tag">
+                探索單元
+            </span>
+
+            <h2>
+                今天想研究什麼？
+            </h2>
+
+            <p>
+                點選一個主題，開始你的物理實驗。
+            </p>
+
+        </div>
+
+
+
+        <!-- 單元卡片 -->
+
+        <div class="lesson-grid">
+
+
+            <!-- =====================
+                 針孔成像
+            ====================== -->
+
+            <a href="pinhole.html"
+               class="lesson-card">
+
+
+                <div class="lesson-thumb">
+
+                    <img
+                        src="images/pinhole-thumb.png"
+                        alt="針孔成像互動模擬示意圖"
+                    >
+
+                </div>
+
+
+                <div class="lesson-number">
+                    OPTICS 01
+                </div>
+
+
+                <h3>
+                    針孔成像
+                </h3>
+
+
+                <p>
+                    光線穿過小孔之後會怎麼走？
+                    改變物體與屏幕的位置，
+                    觀察影像的位置與變化。
+                </p>
+
+
+                <span class="start">
+                    開始探索 →
+                </span>
+
+
+            </a>
+
+
+
+            <!-- =====================
+                 運動學
+            ====================== -->
+
+            <a href="kinematics.html"
+               class="lesson-card">
+
+
+                <div class="lesson-thumb">
+
+                    <img
+                        src="images/kinematics-thumb.png"
+                        alt="運動學互動模擬示意圖"
+                    >
+
+                </div>
+
+
+                <div class="lesson-number">
+                    MOTION 01
+                </div>
+
+
+                <h3>
+                    運動學
+                </h3>
+
+
+                <p>
+                    改變物體的位置與速度，
+                    觀察它如何隨時間移動，
+                    建立位置、速度與方向的概念。
+                </p>
+
+
+                <span class="start">
+                    開始探索 →
+                </span>
+
+
+            </a>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================
+         頁尾
+    ========================== -->
+
+    <footer>
+        Money's Physics Lab · Learn by Exploring
+    </footer>
+
 
 </body>
+
 </html>
